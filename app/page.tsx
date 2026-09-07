@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // === PASTE YOUR GOOGLE SCRIPT URL HERE ===
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7F412UmqWtQ3RqRpFt8HZJa7g2T3n3QA1TI6DwvmCksa18ZBV1D__IMG96vbzQCk/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyksTUnLbWu8DR_yK8LXhpj3j855O79x-CEL9jrdk9Zx7_qCTEmlOt3ARerWJESePw/exec";
 
 // Optional Clue for the Mystery Word at the end
 const FINAL_WORD_CLUE = "Clue: A fundamental domain of modern computing and internet architecture.";
@@ -105,40 +105,41 @@ export default function Home() {
     }, 1800);
   };
 
-  const handleSubmitAll = async () => {
+const handleSubmitAll = async () => {
     setIsSubmitting(true);
     const timeTakenSeconds = 1200 - timeLeft;
     const minutes = Math.floor(timeTakenSeconds / 60);
     const seconds = timeTakenSeconds % 60;
     const formattedTimeTaken = `${minutes}m ${seconds}s`;
 
-    const payload = {
-      name: user.name,
-      email: user.email,
-      q1: surveyAnswers[0],
-      q2: surveyAnswers[1],
-      q3: surveyAnswers[2],
-      q4: surveyAnswers[3],
-      q5: surveyAnswers[4],
-      q6: surveyAnswers[5],
-      q7: surveyAnswers[6],
-      score: score,
-      finalGuess: finalGuess,
-      quizStartTime: startTime,
-      timeTaken: formattedTimeTaken
-    };
+    // Convert data to URL Search Params format so browser's 'no-cors' mode sends body payload intact
+    const formData = new URLSearchParams();
+    formData.append("name", user.name);
+    formData.append("email", user.email);
+    formData.append("q1", surveyAnswers[0]);
+    formData.append("q2", surveyAnswers[1]);
+    formData.append("q3", surveyAnswers[2]);
+    formData.append("q4", surveyAnswers[3]);
+    formData.append("q5", surveyAnswers[4]);
+    formData.append("q6", surveyAnswers[5]);
+    formData.append("q7", surveyAnswers[6]);
+    formData.append("score", score.toString());
+    formData.append("finalGuess", finalGuess);
+    formData.append("quizStartTime", startTime || "");
+    formData.append("timeTaken", formattedTimeTaken);
 
     try {
-      // no-cors fetch guarantees Google Apps Script receives the payload cleanly
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
       });
       setStep('submitted');
     } catch (err) {
-      alert("Submission failed. Please try again.");
+      alert("Submission failed. Please check your internet connection.");
     } finally {
       setIsSubmitting(false);
     }
