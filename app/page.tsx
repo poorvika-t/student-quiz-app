@@ -112,34 +112,35 @@ const handleSubmitAll = async () => {
     const seconds = timeTakenSeconds % 60;
     const formattedTimeTaken = `${minutes}m ${seconds}s`;
 
-    // Convert data to URL Search Params format so browser's 'no-cors' mode sends body payload intact
-    const formData = new URLSearchParams();
-    formData.append("name", user.name);
-    formData.append("email", user.email);
-    formData.append("q1", surveyAnswers[0]);
-    formData.append("q2", surveyAnswers[1]);
-    formData.append("q3", surveyAnswers[2]);
-    formData.append("q4", surveyAnswers[3]);
-    formData.append("q5", surveyAnswers[4]);
-    formData.append("q6", surveyAnswers[5]);
-    formData.append("q7", surveyAnswers[6]);
-    formData.append("score", score.toString());
-    formData.append("finalGuess", finalGuess);
-    formData.append("quizStartTime", startTime || "");
-    formData.append("timeTaken", formattedTimeTaken);
+    const payload = {
+      name: user.name,
+      email: user.email,
+      q1: surveyAnswers[0],
+      q2: surveyAnswers[1],
+      q3: surveyAnswers[2],
+      q4: surveyAnswers[3],
+      q5: surveyAnswers[4],
+      q6: surveyAnswers[5],
+      q7: surveyAnswers[6],
+      score: score.toString(),
+      finalGuess: finalGuess,
+      quizStartTime: startTime || "",
+      timeTaken: formattedTimeTaken
+    };
 
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
+        redirect: "follow",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "text/plain;charset=utf-8",
         },
-        body: formData.toString()
+        body: JSON.stringify(payload),
       });
+      
       setStep('submitted');
     } catch (err) {
-      alert("Submission failed. Please check your internet connection.");
+      alert("Submission error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
