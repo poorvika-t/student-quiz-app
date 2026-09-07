@@ -8,21 +8,21 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7F412UmqWtQ
 const FINAL_WORD_CLUE = "Clue: A fundamental domain of modern computing and internet architecture.";
 
 const QUESTIONS = [
-  { q: "What is the output of len(\"Python\")?", opts: ["5", "6", "7", "Error"], ans: 1, letter: "Y" },
-  { q: "Which symbol starts a comment in Python?", opts: ["//", "/*", "#", "--"], ans: 2, letter: "T" },
-  { q: "Which Git command creates a copy of a remote repo?", opts: ["git copy", "git clone", "git fork", "git pull-copy"], ans: 1, letter: "E" },
-  { q: "Which protocol is used to securely transfer web pages?", opts: ["HTTP", "FTP", "HTTPS", "SMTP"], ans: 2, letter: "S" },
-  { q: "What does IP stand for?", opts: ["Internet Protocol", "Internal Program", "Internet Process", "Information Protocol"], ans: 0, letter: "S" },
-  { q: "Which SQL command retrieves data from a database?", opts: ["GET", "SELECT", "FETCHDATA", "OPEN"], ans: 1, letter: "R" },
-  { q: "Which operator gets the memory address of a variable in C++?", opts: ["*", "#", "&", "@"], ans: 2, letter: "N" },
-  { q: "Which data structure follows FIFO?", opts: ["Stack", "Queue", "Tree", "Graph"], ans: 1, letter: "L" },
-  { q: "Which data structure follows LIFO?", opts: ["Queue", "Array", "Stack", "Linked List"], ans: 2, letter: "U" },
-  { q: "Which of the following is an operating system?", opts: ["MySQL", "Linux", "Python", "HTML"], ans: 1, letter: "A" },
-  { q: "Which HTML tag creates a hyperlink?", opts: ["<link>", "<a>", "<href>", "<url>"], ans: 1, letter: "E" },
-  { q: "Which language drives webpage interactivity?", opts: ["HTML", "CSS", "JavaScript", "SQL"], ans: 2, letter: "T" },
-  { q: "What is phishing?", opts: ["A programming language", "A deceptive cyberattack", "A database technique", "A network protocol"], ans: 1, letter: "N" },
-  { q: "What does AI stand for?", opts: ["Automated Internet", "Artificial Intelligence", "Advanced Information", "Artificial Internet"], ans: 1, letter: "R" },
-  { q: "Which ML type uses labeled data for training?", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Random Learning"], ans: 0, letter: "K" }
+  { q: "What is the output of len(\"Python\")?", opts: ["5", "6", "7", "Error"], ans: 1, letter: "K" },
+  { q: "Which symbol starts a comment in Python?", opts: ["//", "/*", "#", "--"], ans: 2, letter: "C" },
+  { q: "Which Git command creates a copy of a remote repo?", opts: ["git copy", "git clone", "git fork", "git pull-copy"], ans: 1, letter: "W" },
+  { q: "Which protocol is used to securely transfer web pages?", opts: ["HTTP", "FTP", "HTTPS", "SMTP"], ans: 2, letter: "O" },
+  { q: "What does IP stand for?", opts: ["Internet Protocol", "Internal Program", "Internet Process", "Information Protocol"], ans: 0, letter: "O" },
+  { q: "Which SQL command retrieves data from a database?", opts: ["GET", "SELECT", "FETCHDATA", "OPEN"], ans: 1, letter: "M" },
+  { q: "Which operator gets the memory address of a variable in C++?", opts: ["*", "#", "&", "@"], ans: 2, letter: "E" },
+  { q: "Which data structure follows FIFO?", opts: ["Stack", "Queue", "Tree", "Graph"], ans: 1, letter: "P" },
+  { q: "Which data structure follows LIFO?", opts: ["Queue", "Array", "Stack", "Linked List"], ans: 2, letter: "R" },
+  { q: "Which of the following is an operating system?", opts: ["MySQL", "Linux", "Python", "HTML"], ans: 1, letter: "R" },
+  { q: "Which HTML tag creates a hyperlink?", opts: ["<link>", "<a>", "<href>", "<url>"], ans: 1, letter: "T" },
+  { q: "Which language drives webpage interactivity?", opts: ["HTML", "CSS", "JavaScript", "SQL"], ans: 2, letter: "U" },
+  { q: "What is phishing?", opts: ["A programming language", "A deceptive cyberattack", "A database technique", "A network protocol"], ans: 1, letter: "T" },
+  { q: "What does AI stand for?", opts: ["Automated Internet", "Artificial Intelligence", "Advanced Information", "Artificial Internet"], ans: 1, letter: "N" },
+  { q: "Which ML type uses labeled data for training?", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Random Learning"], ans: 0, letter: "E" }
 ];
 
 export default function Home() {
