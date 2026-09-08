@@ -37,7 +37,7 @@ export default function Home() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [revealedLetters, setRevealedLetters] = useState<string[]>([]);
-  const [timeLeft, setTimeLeft] = useState(1200); // 20 Mins
+  const [timeLeft, setTimeLeft] = useState(720); // 20 Mins
   const [startTime, setStartTime] = useState<string | null>(null);
 
   // Feedback State for Wrong/Correct Answer
@@ -107,7 +107,7 @@ export default function Home() {
 
 const handleSubmitAll = async () => {
     setIsSubmitting(true);
-    const timeTakenSeconds = 1200 - timeLeft;
+    const timeTakenSeconds = 720 - timeLeft;
     const minutes = Math.floor(timeTakenSeconds / 60);
     const seconds = timeTakenSeconds % 60;
     const formattedTimeTaken = `${minutes}m ${seconds}s`;
