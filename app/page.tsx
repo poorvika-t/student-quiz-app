@@ -1,28 +1,27 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-// === PASTE YOUR GOOGLE SCRIPT URL HERE ===
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyksTUnLbWu8DR_yK8LXhpj3j855O79x-CEL9jrdk9Zx7_qCTEmlOt3ARerWJESePw/exec";
+// === PASTE YOUR GOOGLE SCRIPT WEB APP URL HERE ===
+const GOOGLE_SCRIPT_URL = "YOUR_COPIED_GOOGLE_WEB_APP_URL_HERE";
 
-// Optional Clue for the Mystery Word at the end
-const FINAL_WORD_CLUE = "Clue: A fundamental domain of modern computing and internet architecture.";
+const FINAL_WORD_CLUE = "Clue: The interconnected system that allows devices and computers to exchange data and resources.";
 
 const QUESTIONS = [
-  { q: "What is the output of len(\"Python\")?", opts: ["5", "6", "7", "Error"], ans: 1, letter: "K" },
-  { q: "Which symbol starts a comment in Python?", opts: ["//", "/*", "#", "--"], ans: 2, letter: "C" },
-  { q: "Which Git command creates a copy of a remote repo?", opts: ["git copy", "git clone", "git fork", "git pull-copy"], ans: 1, letter: "W" },
-  { q: "Which protocol is used to securely transfer web pages?", opts: ["HTTP", "FTP", "HTTPS", "SMTP"], ans: 2, letter: "O" },
-  { q: "What does IP stand for?", opts: ["Internet Protocol", "Internal Program", "Internet Process", "Information Protocol"], ans: 0, letter: "O" },
-  { q: "Which SQL command retrieves data from a database?", opts: ["GET", "SELECT", "FETCHDATA", "OPEN"], ans: 1, letter: "M" },
+  { q: "What is the output of len(\"Python\")?", opts: ["5", "6", "7", "Error"], ans: 1, letter: "C" },
+  { q: "Which symbol starts a comment in Python?", opts: ["//", "/*", "#", "--"], ans: 2, letter: "O" },
+  { q: "Which Git command creates a copy of a remote repo?", opts: ["git copy", "git clone", "git fork", "git pull-copy"], ans: 1, letter: "M" },
+  { q: "Which protocol is used to securely transfer web pages?", opts: ["HTTP", "FTP", "HTTPS", "SMTP"], ans: 2, letter: "P" },
+  { q: "What does IP stand for?", opts: ["Internet Protocol", "Internal Program", "Internet Process", "Information Protocol"], ans: 0, letter: "U" },
+  { q: "Which SQL command retrieves data from a database?", opts: ["GET", "SELECT", "FETCHDATA", "OPEN"], ans: 1, letter: "T" },
   { q: "Which operator gets the memory address of a variable in C++?", opts: ["*", "#", "&", "@"], ans: 2, letter: "E" },
-  { q: "Which data structure follows FIFO?", opts: ["Stack", "Queue", "Tree", "Graph"], ans: 1, letter: "P" },
-  { q: "Which data structure follows LIFO?", opts: ["Queue", "Array", "Stack", "Linked List"], ans: 2, letter: "R" },
-  { q: "Which of the following is an operating system?", opts: ["MySQL", "Linux", "Python", "HTML"], ans: 1, letter: "R" },
+  { q: "Which data structure follows FIFO?", opts: ["Stack", "Queue", "Tree", "Graph"], ans: 1, letter: "R" },
+  { q: "Which data structure follows LIFO?", opts: ["Queue", "Array", "Stack", "Linked List"], ans: 2, letter: "N" },
+  { q: "Which of the following is an operating system?", opts: ["MySQL", "Linux", "Python", "HTML"], ans: 1, letter: "E" },
   { q: "Which HTML tag creates a hyperlink?", opts: ["<link>", "<a>", "<href>", "<url>"], ans: 1, letter: "T" },
-  { q: "Which language drives webpage interactivity?", opts: ["HTML", "CSS", "JavaScript", "SQL"], ans: 2, letter: "U" },
-  { q: "What is phishing?", opts: ["A programming language", "A deceptive cyberattack", "A database technique", "A network protocol"], ans: 1, letter: "T" },
-  { q: "What does AI stand for?", opts: ["Automated Internet", "Artificial Intelligence", "Advanced Information", "Artificial Internet"], ans: 1, letter: "N" },
-  { q: "Which ML type uses labeled data for training?", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Random Learning"], ans: 0, letter: "E" }
+  { q: "Which language drives webpage interactivity?", opts: ["HTML", "CSS", "JavaScript", "SQL"], ans: 2, letter: "W" },
+  { q: "What is phishing?", opts: ["A programming language", "A deceptive cyberattack", "A database technique", "A network protocol"], ans: 1, letter: "O" },
+  { q: "What does AI stand for?", opts: ["Automated Internet", "Artificial Intelligence", "Advanced Information", "Artificial Internet"], ans: 1, letter: "R" },
+  { q: "Which ML type uses labeled data for training?", opts: ["Supervised Learning", "Unsupervised Learning", "Reinforcement Learning", "Random Learning"], ans: 0, letter: "K" }
 ];
 
 export default function Home() {
@@ -37,10 +36,10 @@ export default function Home() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [revealedLetters, setRevealedLetters] = useState<string[]>([]);
-  const [timeLeft, setTimeLeft] = useState(420); // 20 Mins
+  const [timeLeft, setTimeLeft] = useState(420); // 7 Minutes (420 seconds)
   const [startTime, setStartTime] = useState<string | null>(null);
 
-  // Feedback State for Wrong/Correct Answer
+  // Feedback State for Answer Reveal
   const [selectedOpt, setSelectedOpt] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<{ isCorrect: boolean; text: string } | null>(null);
 
@@ -93,7 +92,7 @@ export default function Home() {
       });
     }
 
-    // Delay auto-advance so participant can read answer feedback
+    // Delay auto-advance so participant can read feedback
     setTimeout(() => {
       setFeedback(null);
       setSelectedOpt(null);
@@ -102,12 +101,12 @@ export default function Home() {
       } else {
         setStep('guess');
       }
-    }, 1800);
+    }, 1600);
   };
 
-const handleSubmitAll = async () => {
+  const handleSubmitAll = async () => {
     setIsSubmitting(true);
-    const timeTakenSeconds = 420 - timeLeft;
+    const timeTakenSeconds = 420 - timeLeft; // 420 seconds = 7 mins
     const minutes = Math.floor(timeTakenSeconds / 60);
     const seconds = timeTakenSeconds % 60;
     const formattedTimeTaken = `${minutes}m ${seconds}s`;
@@ -140,7 +139,7 @@ const handleSubmitAll = async () => {
       
       setStep('submitted');
     } catch (err) {
-      alert("Submission error. Please check your connection.");
+      alert("Submission error. Please check your internet connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -157,8 +156,8 @@ const handleSubmitAll = async () => {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <div style={{ width: '100%', maxWidth: '650px', backgroundColor: '#ffffff', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0,0,0,0.08)', padding: '32px', border: '1px solid #e5e7eb' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', color: '#111827', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <div style={{ width: '100%', maxWidth: '650px', backgroundColor: '#ffffff', color: '#111827', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0,0,0,0.08)', padding: '24px', border: '1px solid #e5e7eb' }}>
         
         {/* LOGIN STEP */}
         {step === 'login' && (
@@ -168,13 +167,13 @@ const handleSubmitAll = async () => {
             <form onSubmit={handleStartSurvey} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>Full Name</label>
-                <input type="text" required placeholder="John Doe" value={user.name} onChange={e => setUser({...user, name: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '15px', outline: 'none' }} />
+                <input type="text" required placeholder="John Doe" value={user.name} onChange={e => setUser({...user, name: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #9ca3af', backgroundColor: '#ffffff', color: '#111827', fontSize: '16px', outline: 'none' }} />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>Email Address</label>
-                <input type="email" required placeholder="john@example.com" value={user.email} onChange={e => setUser({...user, email: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '15px', outline: 'none' }} />
+                <input type="email" required placeholder="john@example.com" value={user.email} onChange={e => setUser({...user, email: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #9ca3af', backgroundColor: '#ffffff', color: '#111827', fontSize: '16px', outline: 'none' }} />
               </div>
-              <button type="submit" style={{ marginTop: '8px', backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '8px', fontWeight: '600', fontSize: '16px', cursor: 'pointer', transition: 'background-color 0.2s' }}>
+              <button type="submit" style={{ marginTop: '8px', backgroundColor: '#4f46e5', color: '#ffffff', border: 'none', padding: '14px', borderRadius: '8px', fontWeight: '600', fontSize: '16px', cursor: 'pointer' }}>
                 Continue to Survey →
               </button>
             </form>
@@ -186,7 +185,7 @@ const handleSubmitAll = async () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
               <span style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', color: '#4f46e5' }}>Survey ({surveyIndex + 1} / 7)</span>
-              <span style={{ fontSize: '13px', color: '#6b7280', fontWeight: '500' }}>Mandatory Questions</span>
+              <span style={{ fontSize: '13px', color: '#4b5563', fontWeight: '600' }}>Mandatory Questions</span>
             </div>
             
             <div style={{ width: '100%', backgroundColor: '#e5e7eb', height: '6px', borderRadius: '3px', marginBottom: '24px' }}>
@@ -203,7 +202,7 @@ const handleSubmitAll = async () => {
                   newAns[2] = e.target.value;
                   setSurveyAnswers(newAns);
                 }}
-                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '15px', marginBottom: '20px', backgroundColor: '#fff' }}
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #9ca3af', fontSize: '16px', marginBottom: '20px', backgroundColor: '#ffffff', color: '#111827' }}
               >
                 <option value="">-- Select Frequency --</option>
                 <option value="Almost every day">Almost every day</option>
@@ -216,7 +215,7 @@ const handleSubmitAll = async () => {
               <textarea 
                 rows={4} 
                 placeholder="Type your response here..."
-                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '15px', marginBottom: '20px', resize: 'vertical' }}
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #9ca3af', backgroundColor: '#ffffff', color: '#111827', fontSize: '16px', marginBottom: '20px', resize: 'vertical' }}
                 value={surveyAnswers[surveyIndex]}
                 onChange={e => {
                   const newAns = [...surveyAnswers];
@@ -239,9 +238,9 @@ const handleSubmitAll = async () => {
         {/* QUIZ STEP */}
         {step === 'quiz' && (
           <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', backgroundColor: '#f9fafb', padding: '12px 16px', borderRadius: '10px', border: '1px solid #f3f4f6' }}>
-              <span style={{ fontWeight: '700', fontSize: '14px', color: '#374151' }}>Q{quizIndex + 1} of 15</span>
-              <span style={{ fontWeight: '700', fontSize: '14px', color: '#dc2626', backgroundColor: '#fef2f2', padding: '4px 10px', borderRadius: '6px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', backgroundColor: '#f9fafb', padding: '12px 16px', borderRadius: '10px', border: '1px solid #e5e7eb' }}>
+              <span style={{ fontWeight: '700', fontSize: '14px', color: '#111827' }}>Q{quizIndex + 1} of 15</span>
+              <span style={{ fontWeight: '800', fontSize: '14px', color: '#dc2626', backgroundColor: '#fef2f2', padding: '4px 10px', borderRadius: '6px', border: '1px solid #fecaca' }}>
                 ⏱ {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
               </span>
             </div>
@@ -253,8 +252,8 @@ const handleSubmitAll = async () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
               {QUESTIONS[quizIndex].opts.map((opt, i) => {
                 let btnBg = '#ffffff';
-                let btnBorder = '#e5e7eb';
-                let btnColor = '#374151';
+                let btnBorder = '#d1d5db';
+                let btnColor = '#111827';
 
                 if (selectedOpt !== null) {
                   if (i === QUESTIONS[quizIndex].ans) {
@@ -283,7 +282,7 @@ const handleSubmitAll = async () => {
 
             {/* ANSWER FEEDBACK DISPLAY */}
             {feedback && (
-              <div style={{ padding: '12px 16px', borderRadius: '8px', backgroundColor: feedback.isCorrect ? '#ecfdf5' : '#fef2f2', border: `1px solid ${feedback.isCorrect ? '#a7f3d0' : '#fecaca'}`, color: feedback.isCorrect ? '#065f46' : '#991b1b', fontWeight: '600', fontSize: '14px' }}>
+              <div style={{ padding: '12px 16px', borderRadius: '8px', backgroundColor: feedback.isCorrect ? '#ecfdf5' : '#fef2f2', border: `1px solid ${feedback.isCorrect ? '#a7f3d0' : '#fecaca'}`, color: feedback.isCorrect ? '#065f46' : '#991b1b', fontWeight: '700', fontSize: '14px' }}>
                 {feedback.text}
               </div>
             )}
@@ -294,14 +293,14 @@ const handleSubmitAll = async () => {
         {step === 'guess' && (
           <div>
             <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>Quiz Finished!</h2>
-            <p style={{ fontSize: '15px', color: '#4b5563', marginBottom: '20px' }}>Your Score: <strong>{score} / 15</strong></p>
+            <p style={{ fontSize: '15px', color: '#374151', marginBottom: '20px' }}>Your Score: <strong style={{ color: '#111827' }}>{score} / 15</strong></p>
 
-            <div style={{ backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '20px' }}>
-              <span style={{ fontSize: '12px', fontWeight: '700', color: '#64748b', textTransform: 'uppercase' }}>Revealed Letters</span>
+            <div style={{ backgroundColor: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #cbd5e1', marginBottom: '20px' }}>
+              <span style={{ fontSize: '12px', fontWeight: '800', color: '#475569', textTransform: 'uppercase' }}>Revealed Letters</span>
               <div style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '4px', color: '#4f46e5', margin: '8px 0' }}>
                 {revealedLetters.length > 0 ? revealedLetters.join(" - ") : "None Revealed"}
               </div>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: '0', fontStyle: 'italic' }}>{FINAL_WORD_CLUE}</p>
+              <p style={{ fontSize: '13px', color: '#334155', margin: '0', fontWeight: '500' }}>{FINAL_WORD_CLUE}</p>
             </div>
 
             <div style={{ marginBottom: '24px' }}>
@@ -311,7 +310,7 @@ const handleSubmitAll = async () => {
                 placeholder="Enter word here..."
                 value={finalGuess} 
                 onChange={e => setFinalGuess(e.target.value)} 
-                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '15px', outline: 'none' }} 
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #9ca3af', backgroundColor: '#ffffff', color: '#111827', fontSize: '16px', outline: 'none' }} 
               />
             </div>
 
@@ -330,8 +329,8 @@ const handleSubmitAll = async () => {
           <div style={{ textAlign: 'center', padding: '20px 0' }}>
             <div style={{ fontSize: '48px', marginBottom: '12px' }}>🎉</div>
             <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', marginBottom: '8px' }}>Submission Received!</h2>
-            <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: '1.5' }}>
-              Thank you, <strong>{user.name}</strong>. Your survey responses, quiz results, and final guess have been automatically logged to Google Sheets.
+            <p style={{ fontSize: '15px', color: '#374151', lineHeight: '1.5' }}>
+              Thank you, <strong>{user.name}</strong>. Your survey responses, quiz results, and final guess have been logged successfully.
             </p>
           </div>
         )}
