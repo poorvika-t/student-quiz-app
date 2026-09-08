@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // === PASTE YOUR GOOGLE SCRIPT WEB APP URL HERE ===
-const GOOGLE_SCRIPT_URL = "YOUR_COPIED_GOOGLE_WEB_APP_URL_HERE";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyksTUnLbWu8DR_yK8LXhpj3j855O79x-CEL9jrdk9Zx7_qCTEmlOt3ARerWJESePw/exec";
 
 const FINAL_WORD_CLUE = "Clue: The interconnected system that allows devices and computers to exchange data and resources.";
 
@@ -36,7 +36,7 @@ export default function Home() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [revealedLetters, setRevealedLetters] = useState<string[]>([]);
-  const [timeLeft, setTimeLeft] = useState(420); // 7 Minutes (420 seconds)
+  const [timeLeft, setTimeLeft] = useState(360); // 7 Minutes (420 seconds)
   const [startTime, setStartTime] = useState<string | null>(null);
 
   // Feedback State for Answer Reveal
@@ -106,7 +106,7 @@ export default function Home() {
 
   const handleSubmitAll = async () => {
     setIsSubmitting(true);
-    const timeTakenSeconds = 420 - timeLeft; // 420 seconds = 7 mins
+    const timeTakenSeconds = 360 - timeLeft; // 420 seconds = 7 mins
     const minutes = Math.floor(timeTakenSeconds / 60);
     const seconds = timeTakenSeconds % 60;
     const formattedTimeTaken = `${minutes}m ${seconds}s`;
